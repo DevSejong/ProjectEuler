@@ -47,23 +47,31 @@ public class Server implements Runnable {
         closeIgnoreException(serverSocket);
     }
 
-    private void process(Socket socket) {
+    private void process(final Socket socket) {
         if (socket == null) {
             return;
         }
 
-        try {
-            System.out.printf("Server : getting message\n");
-            String message = MessageUtils.getMessage(socket);
-            System.out.printf("Server : got message : %s\n", message);
-            Thread.sleep(1000);
-            System.out.printf("Server: sending reply : %s\n", message);
-            MessageUtils.sendMessage(socket, "Processed : " + message);
-            System.out.printf("Server : sent\n");
-            closeIgnoreException(socket);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Runnable clientHandler = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.out.printf("Server : getting message\n");
+                    String message = MessageUtils.getMessage(socket);
+                    System.out.printf("Server : got message : %s\n", message);
+                    Thread.sleep(1000);
+                    System.out.printf("Server: sending reply : %s\n", message);
+                    MessageUtils.sendMessage(socket, "Processed : " + message);
+                    System.out.printf("Server : sent\n");
+                    closeIgnoreException(socket);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Thread clientConnection = new Thread(clientHandler);
+        clientConnection.start();
     }
 
     private void closeIgnoreException(Socket socket) {

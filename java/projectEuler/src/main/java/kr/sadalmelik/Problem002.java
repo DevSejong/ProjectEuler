@@ -1,4 +1,4 @@
-package com.devsejong;
+package kr.sadalmelik;
 
 /*
  * http://euler.synap.co.kr/prob_detail.php?id=2

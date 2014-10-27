@@ -1,4 +1,4 @@
-package com.devsejong;
+package kr.sadalmelik;
 
 /**
  * 10보다 작은 자연수 중에서 3 또는 5의 배수는 3, 5, 6, 9 이고, 이것을 모두 더하면 23입니다.

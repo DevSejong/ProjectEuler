@@ -1,4 +1,4 @@
-package com.devsejong;
+package kr.sadalmelik;
 
 /**
  * 1에서 10까지 모두로 나누어지는 가장 작은 수는 2520입니다.

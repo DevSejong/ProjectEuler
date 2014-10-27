@@ -1,6 +1,4 @@
-package com.devsejong;
-
-import org.junit.Test;
+package kr.sadalmelik;
 
 import java.util.ArrayList;
 import java.util.List;

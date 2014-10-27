@@ -1,4 +1,4 @@
-package com.devsejong;
+package kr.sadalmelik;
 
 import java.util.List;
 

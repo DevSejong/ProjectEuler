@@ -21,52 +21,54 @@ public class Problem007 {
         System.out.println("10001번째 소수는 : " +  primeNumber);
     }
 
-}
+    static class PrimeNumberGenerator {
+        List<Long> primeNumbers;
 
-class PrimeNumberGenerator {
-    List<Long> primeNumbers;
+        PrimeNumberGenerator() {
+            primeNumbers = new ArrayList<Long>();
 
-    PrimeNumberGenerator() {
-        primeNumbers = new ArrayList<Long>();
+            //소수의 시작은 2이다.
+            primeNumbers.add(2L);
+        }
 
-        //소수의 시작은 2이다.
-        primeNumbers.add(2L);
-    }
+        public long generateNext() {
+            long target = primeNumbers.get(primeNumbers.size() - 1);
+            boolean isPrimeNumber = false;
 
-    public long generateNext() {
-        long target = primeNumbers.get(primeNumbers.size() - 1);
-        boolean isPrimeNumber = false;
+            //리스트의 마지막 숫자에서 1을 더하면서 primeNumber인지 확인한다.
+            while (isPrimeNumber == false) {
+                target += 1;
 
-        //리스트의 마지막 숫자에서 1을 더하면서 primeNumber인지 확인한다.
-        while (isPrimeNumber == false) {
-            target += 1;
-
-            if (isPrimeNumber(target)) {
-                primeNumbers.add(target);
-                isPrimeNumber = true;
+                if (isPrimeNumber(target)) {
+                    primeNumbers.add(target);
+                    isPrimeNumber = true;
+                }
             }
+
+            return target;
         }
 
-        return target;
-    }
-
-    private boolean isPrimeNumber(long target) {
-        //지금까지 나온 모든 소수로 나눈다.
-        //만약 나누어 질 경우 소수가 아니다.
-        for (long prevPrimeNumber : primeNumbers) {
-            if (target % prevPrimeNumber == 0)
-                return false;
+        private boolean isPrimeNumber(long target) {
+            //지금까지 나온 모든 소수로 나눈다.
+            //만약 나누어 질 경우 소수가 아니다.
+            for (long prevPrimeNumber : primeNumbers) {
+                if (target % prevPrimeNumber == 0)
+                    return false;
+            }
+            return true;
         }
-        return true;
-    }
 
-    public List<Long> getPrimeNumbers() {
-        return primeNumbers;
-    }
+        public List<Long> getPrimeNumbers() {
+            return primeNumbers;
+        }
 
-    public int getPrimeNumbersSize() {
-        return primeNumbers.size();
+        public int getPrimeNumbersSize() {
+            return primeNumbers.size();
+        }
+
+
     }
 
 
 }
+

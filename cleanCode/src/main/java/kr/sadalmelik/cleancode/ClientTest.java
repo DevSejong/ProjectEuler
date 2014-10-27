@@ -55,7 +55,7 @@ public class ClientTest {
 
     @Test(timeout = 10000)
     public void shouldRunInUnder10Seconds() throws InterruptedException {
-        Thread[] threads = new Thread[10];
+        Thread[] threads = new Thread[0];
 
         for (int i = 0; i < threads.length; ++i) {
             threads[i] = new Thread(new TrivialCleint(i));
@@ -71,7 +71,7 @@ public class ClientTest {
         System.out.printf("Client %2d : connecting\n", i);
         Socket socket = new Socket("localhost", PORT);
         System.out.printf("Client %2d : sending message\n", i);
-        //MessageUtils.sendMessage(socket, Integer.toString(i));
+        MessageUtils.sendMessage(socket, Integer.toString(i));
         System.out.printf("Client %2d : getting reply\n", i);
         MessageUtils.getMessage(socket);
         System.out.printf("Client %2d : finished\n", i);

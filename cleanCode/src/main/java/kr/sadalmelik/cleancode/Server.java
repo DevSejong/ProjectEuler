@@ -14,10 +14,17 @@ public class Server implements Runnable {
     ServerSocket serverSocket;
     volatile boolean keepProcessing = true;
 
+    //리팩토링 1단계 단일 책임 원칙 준수하기
+    ConnectionMaker connectionMaker;
+    ClientScheduler clientScheduler;
+
     public Server(int port, int millisecondsTimeout) throws IOException {
         serverSocket = new ServerSocket(port);
         serverSocket.setSoTimeout(millisecondsTimeout);
-    }
+
+        connectionMaker = new ConnectionMaker(serverSocket);
+        clientScheduler = new ThreadPerRequestScheduler();
+     }
 
     @Override
     public void run() {
@@ -25,70 +32,21 @@ public class Server implements Runnable {
 
         while (keepProcessing) {
             try {
-                System.out.printf("accepting client\n");
-
-                Socket socket = serverSocket.accept();
-                System.out.printf("got client\n");
-                process(socket);
+                ClientConnection clientConnection = connectionMaker.awaitClient();
+                ClientRequestProcessor requestProcessor = new ClientRequestProcessor(clientConnection);
+                clientScheduler.schedule(requestProcessor);
             } catch (IOException e) {
-                handle(e);
+                if((e instanceof SocketException)){
+                    e.printStackTrace();
+                }
             }
         }
-    }
-
-    private void handle(Exception e) {
-        if (!(e instanceof SocketException)) {
-            e.printStackTrace();
-        }
+            connectionMaker.shutdown();
     }
 
     void stopProcessing() {
         keepProcessing = false;
-        closeIgnoreException(serverSocket);
     }
 
-    private void process(final Socket socket) {
-        if (socket == null) {
-            return;
-        }
 
-        Runnable clientHandler = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    System.out.printf("Server : getting message\n");
-                    String message = MessageUtils.getMessage(socket);
-                    System.out.printf("Server : got message : %s\n", message);
-                    Thread.sleep(1000);
-                    System.out.printf("Server: sending reply : %s\n", message);
-                    MessageUtils.sendMessage(socket, "Processed : " + message);
-                    System.out.printf("Server : sent\n");
-                    closeIgnoreException(socket);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        Thread clientConnection = new Thread(clientHandler);
-        clientConnection.start();
-    }
-
-    private void closeIgnoreException(Socket socket) {
-        if (socket != null) {
-            try {
-                socket.close();
-            } catch (IOException e) {
-            }
-        }
-    }
-
-    private void closeIgnoreException(ServerSocket serverSocket) {
-        if (serverSocket != null) {
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-            }
-        }
-    }
 }

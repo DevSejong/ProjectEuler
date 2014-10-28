@@ -4,6 +4,7 @@ package kr.sadalmelik;
  * Created by SejongPark on 14. 10. 28..
  * <p>
  * http://euler.synap.co.kr/prob_detail.php?id=9
+ * http://en.wikipedia.org/wiki/Pythagorean_triple
  * <p>
  * 세 자연수 a, b, c 가 피타고라스 정리 a^2 + b^2 = c^2 를 만족하면 피타고라스 수라고 부릅니다 (여기서 a < b < c ).
  * 예를 들면 32 + 42 = 9 + 16 = 25 = 52이므로 3, 4, 5는 피타고라스 수입니다.

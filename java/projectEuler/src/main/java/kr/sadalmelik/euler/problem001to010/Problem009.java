@@ -1,4 +1,4 @@
-package kr.sadalmelik;
+package kr.sadalmelik.euler.problem001to010;
 
 /**
  * Created by SejongPark on 14. 10. 28..

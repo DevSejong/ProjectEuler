@@ -1,4 +1,4 @@
-package kr.sadalmelik;
+package kr.sadalmelik.euler.problem001to010;
 
 /**
  * 1에서 10까지 모두로 나누어지는 가장 작은 수는 2520입니다.

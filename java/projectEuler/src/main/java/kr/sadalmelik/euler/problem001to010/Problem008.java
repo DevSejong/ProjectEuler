@@ -1,4 +1,4 @@
-package kr.sadalmelik;
+package kr.sadalmelik.euler.problem001to010;
 
 import java.util.ArrayList;
 import java.util.Arrays;

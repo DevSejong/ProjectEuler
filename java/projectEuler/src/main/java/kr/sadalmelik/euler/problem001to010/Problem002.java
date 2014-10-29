@@ -1,4 +1,4 @@
-package kr.sadalmelik;
+package kr.sadalmelik.euler.problem001to010;
 
 /*
  * http://euler.synap.co.kr/prob_detail.php?id=2

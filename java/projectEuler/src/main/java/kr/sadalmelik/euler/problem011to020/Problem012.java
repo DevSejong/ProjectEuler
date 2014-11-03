@@ -29,23 +29,16 @@ import java.util.List;
 public class Problem012 {
 
     public static void main(String[] args) {
-        int divisors = 0;
+        int divisorsSize = 0;
         int count = 1;
         long triNum = 0;
 
-//        while (divisors <= 501) {
-//            triNum += count;
-//            getFactorsSize(triNum);
-//            //System.out.println(triNum + "_" + divisors);
-//            count++;
-//        }
-
-        List<Long> primeFactorization = EulerUtil.getPrimeFactorization(12L);
-//        for(primeFactorization){
-//
-//        }
-
-
+        while (divisorsSize <= 501) {
+            triNum += count;
+            divisorsSize = EulerUtil.getDivisorNumber(triNum);
+            System.out.println(triNum + "_" + divisorsSize);
+            count++;
+        }
     }
 
 }

@@ -3,7 +3,7 @@ package kr.sadalmelik.euler.problem011to020;
 /**
  * Created by SejongPark on 14. 11. 3..
  */
-public class Problem013_fastest {
+public class Problem012_fastest {
     private static int countFactors(int f) {
         int factors = 0;
 

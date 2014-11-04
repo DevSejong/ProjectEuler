@@ -5,6 +5,7 @@ import kr.sadalmelik.jpa.domain.Employee;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 public class JpaSimpleTest {
 
@@ -37,5 +38,6 @@ public class JpaSimpleTest {
         em.getTransaction().commit();
         em.close();
 
+        emFactory.close();
     }
 }

@@ -21,33 +21,33 @@ public class Problem014 {
 
     public static void main(String[] args) {
         HailstoneSequence hailstoneSequence = new HailstoneSequence();
-        List<Integer> longestNumberList = new ArrayList<>();
+        int largestSequenceSize = -1;
+        int largestSequenceNumber = -1;
 
-        for (int i = 1; i <= 1 * 1000 * 1000; i++) {
-            List<Integer> seqList = hailstoneSequence.getList(i);
-            if(seqList.size() >= longestNumberList.size()){
-                longestNumberList = seqList;
+        for (int i = 1; i <= 1 * 1000000; i++) {
+            int seqSize = hailstoneSequence.getListSize(i);
+            if(seqSize >= largestSequenceSize){
+                largestSequenceSize = seqSize;
+                largestSequenceNumber = i;
             }
 
-            if(i % 1000 == 0){
-                System.out.println(seqList);
-            }
         }
-        System.out.println(longestNumberList);
+
+        System.out.println("제일 긴 우박수의 길이 : " + largestSequenceSize);
+        System.out.println("제일 긴 우박수 :  " + largestSequenceNumber);
     }
 }
 
 class HailstoneSequence {
-    Map<Integer, List<Integer>> hailstoneSequenceList = new HashMap<>();
+    Map<Integer, Integer> hailstoneSequenceSizeList = new HashMap<>();
 
-    public List<Integer> getList(int number) {
-        int target = number;
+    public int getListSize(int number) {
+        long target = number;
 
-        List<Integer> resultList = new ArrayList<>();
-        resultList.add(number);
+        int sequenceSize = 1;
         while (target != 1) {
-            if (hailstoneSequenceList.containsKey(target)) {
-                resultList.addAll(hailstoneSequenceList.get(target));
+            if (hailstoneSequenceSizeList.containsKey(target)) {
+                sequenceSize = hailstoneSequenceSizeList.get(target) + sequenceSize;
                 break;
             } else {
                 if (target % 2 == 0)
@@ -55,12 +55,13 @@ class HailstoneSequence {
                 else
                     target = target * 3 + 1;
 
-                resultList.add(target);
+                sequenceSize +=1;
             }
-
         }
-        hailstoneSequenceList.put(number, resultList);
-        return resultList;
+
+        hailstoneSequenceSizeList.put(number, sequenceSize);
+
+        return sequenceSize;
     }
 
 

@@ -2,6 +2,7 @@ package kr.sadalmelik.euler.problem011to020;
 
 /**
  * Created by SejongPark on 14. 11. 3..
+ * //이건 분석 필요함.
  */
 public class Problem012_fastest {
     private static int countFactors(int f) {
